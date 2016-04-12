@@ -2,3 +2,6 @@ downloads/
 advanced-MapleLauncher-master/
 domainModel/
 backup/
+
+# Has its own git repo
+website/
