@@ -12,6 +12,7 @@
     <orderEntry type="library" name="MoopleDEV" level="project" />
     <orderEntry type="library" name="mysql-connector-java-bin" level="project" />
     <orderEntry type="library" name="slf4j-jdk14-1.7.5" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.6.6" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
