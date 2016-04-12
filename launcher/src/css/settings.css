@@ -1,0 +1,95 @@
+@font-face {
+  src: url('YakuzaFont.ttf');
+}
+@font-face {
+  src: url('Roboto-Regular.ttf');
+}
+@font-face {
+  src: url('Bubblegum.ttf');
+}
+
+/*Variables*/
+
+* {
+  -light-grey: #aaa;
+  -dark-grey: #4A4A4A;
+  -dark-blue: #3B7AA2;
+  -subtle-white: #BABABA;
+  -white: #FCFCFC;
+}
+
+/*Root view*/
+
+.body {
+  -fx-opacity: 0.95;
+  -fx-font-family: 'Bubblegum';
+}
+.body .label {}
+.body LabeledText {
+  -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.25), 7.5, 0, 0, 0);
+}
+.body .button LabeledText {
+  -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.25), 7.5, 0, 0, 0);
+}
+
+/*Logo area*/
+
+.title {
+  -fx-font-family: 'Bulldozer';
+  -fx-background-color: -dark-blue;
+  -fx-font-size: 45pt;
+}
+.title LabeledText {
+  -fx-fill: -white;
+}
+
+/*Settings area*/
+
+.settings {
+  -fx-padding: 10px;
+  -fx-border-insets: 10px;
+  -fx-background-insets: 10px;
+}
+
+/*Filepath area*/
+
+.filepatharea {
+  -fx-padding: 20px;
+  -fx-border-insets: 20px;
+  -fx-background-insets: 20px;
+}
+.filepathcontrols, .infolabel {
+  -fx-padding: 3px;
+  -fx-border-insets: 3px;
+  -fx-background-insets: 3px;
+}
+.infolabel LabeledText {
+  -fx-fill: -light-grey;
+  -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0), 0, 0, 0, 0);
+}
+.filepathcontrols LabeledText {
+  -fx-fill: -white;
+}
+
+/*Cancel confirm area*/
+
+.btnCancelOrConfirm {
+  -fx-font-size: 16pt;
+  -fx-padding: 10px;
+  -fx-border-insets: 10px;
+  -fx-background-insets: 10px;
+}
+
+/*Button info*/
+
+.button {
+  -fx-text-fill: -white;
+  -fx-background-color: -dark-blue;
+}
+.button LabeledText {}
+.button:hover LabeledText {
+  -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.25), 2.5, 0, 0, 2.5);
+}
+.button:pressed {
+  -fx-padding: 5 0 0 0;
+}

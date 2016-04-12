@@ -1,0 +1,66 @@
+/*Variables*/
+* {
+	
+	-light-blue: #709AD8;
+	-dark-blue: #3B7AA2;
+
+-subtle-white: #BABABA;
+	-white: #FCFCFC;
+}
+
+/*Root view*/
+.body {
+
+}
+
+.listview {
+-fx-background-color: -dark-blue;	
+-fx-effect: innershadow( gaussian, rgba(0, 0, 00, 0.5 ), 3, 0.5, -15, 0);
+}
+
+/*Edit area*/
+.edit_area {
+-fx-background-color: -dark-blue;
+
+}
+.edit_area .title_area {
+-fx-background-color: -light-blue;
+}
+.edit_area .title_area .CheckBox{
+-fx-padding: 25px;
+}
+
+.edit_area .desc_area {
+-fx-background-color: -dark-blue;
+}
+
+.edit_area .button_area {
+-fx-background-color: -light-blue;
+}
+.edit_area .button_area .button {
+-fx-effect: innershadow( gaussian, rgba(0, 0, 0, 0.25 ), 25, 0, 0, 0);
+}
+.edit_area .button_area .button:hover {
+-fx-effect: innershadow( gaussian, rgba(0, 0, 0, 0.50 ), 25, 0, 0, 0);
+}
+.edit_area .button_area .button:hover LabeledText {
+-fx-effect: innershadow( gaussian, rgba(0, 0, 0, 0.50 ), 25, 0, 0, 0);
+}
+.edit_area .button_area .btnSave {
+
+}
+.edit_area .button_area .btnCancel {
+
+}
+.edit_area .button_area .btnDelete {
+
+}
+
+/*.logo .label {*/
+/*-fx-font-size: 85pt;*/
+/*-fx-effect: dropshadow( gaussian , -white , 5,5,0,0);*/
+/*}*/
+/*.logo .label LabeledText {
+-fx-fill: -white;
+-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 7.5,0,0,2.5);
+}*/

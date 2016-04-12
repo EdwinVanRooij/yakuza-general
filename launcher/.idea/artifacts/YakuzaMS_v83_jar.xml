@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="YakuzaMS_v83:jar">
+    <output-path>$PROJECT_DIR$/../General/out/artifacts/YakuzaMS_v83_jar</output-path>
+    <root id="archive" name="YakuzaMS_v83.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/../Source/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="YakuzaMS_v83" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Source/libs/slf4j-jdk14-1.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Source/libs/mina-core-2.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Source/libs/mysql-connector-java-bin.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Source/libs/slf4j-api-1.6.6.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

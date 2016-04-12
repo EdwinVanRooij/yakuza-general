@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="805.0" prefWidth="1011.0" styleClass="body" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+   <children>
+      <TableView fx:id="table" prefHeight="518.0" prefWidth="1011.0" styleClass="listview" />
+      <VBox prefHeight="295.0" prefWidth="1011.0" styleClass="edit_area">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="title_area">
+               <children>
+                  <TextField fx:id="tvTitle" prefHeight="31.0" prefWidth="867.0" />
+                  <CheckBox fx:id="cbImportant" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" styleClass="CheckBox" />
+               </children>
+            </HBox>
+            <HBox prefHeight="122.0" prefWidth="1011.0" styleClass="desc_area">
+               <children>
+                  <TextArea fx:id="taContent" prefHeight="120.0" prefWidth="1047.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="76.0" prefWidth="1011.0" styleClass="button_area">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onBtnDeleteClick" prefHeight="92.0" prefWidth="306.0" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#onBtnCancelClick" prefHeight="74.0" prefWidth="175.0" text="Cancel" />
+                  <Button mnemonicParsing="false" onAction="#onBtnSaveClick" prefHeight="74.0" prefWidth="583.0" text="Save" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
