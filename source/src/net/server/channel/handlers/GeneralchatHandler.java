@@ -31,21 +31,27 @@ import client.command.Commands;
 public final class GeneralchatHandler extends net.AbstractMaplePacketHandler {
 
     public final void handlePacket(SeekableLittleEndianAccessor slea, MapleClient c) {
+
+        // todo: clean this whole character command mess
+
         String s = slea.readMapleAsciiString();
         MapleCharacter chr = c.getPlayer();
         String heading = s.substring(0, 1);
-        switch (heading) {
-            String[] sp = s.split(" ");
-            sp[0] = sp[0].toLowerCase().substring(1);
+        String[] sp = s.split(" ");
+        sp[0] = sp[0].toLowerCase().substring(1);
+        if (sp.length > 0) {
+            switch (heading) {
 
-            case Strings.SUB_PLAYER:
-                Commands.executePlayerCommand(c, sp, heading);
-                break;
-            case Strings.SUB_DONOR:
-                break;
+                case Strings.SUB_PLAYER:
+                    Commands.executePlayerCommand(c, sp, heading);
+                    break;
+                case Strings.SUB_DONOR:
+                    break;
+            }
+
         }
-        if (heading == '/' || heading == '!' || heading == '@') {
 
+        if (heading == "/" || heading == "!" || heading == "@") {
             if (!Commands.executePlayerCommand(c, sp, heading)) {
                 if (chr.isGM()) {
                     if (!Commands.executeGMCommand(c, sp, heading)) {
