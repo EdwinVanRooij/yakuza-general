@@ -366,7 +366,7 @@ public class AbstractPlayerInteraction {
     }
 
     public void displayGuide(int num) {
-        c.announce(MaplePacketCreator.showInfo("UI/tutorial.img/" + num));
+        c.announce(MaplePacketCreator.showInfo("ui/tutorial.img/" + num));
     }
 
     public void talkGuide(String message) {
