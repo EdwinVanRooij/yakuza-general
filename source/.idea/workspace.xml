@@ -6,7 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="203e6e80-6fec-42ef-b2b4-b6f8d08d3ab9" name="Default" comment="" />
+    <list default="true" id="203e6e80-6fec-42ef-b2b4-b6f8d08d3ab9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="MapleSolaxia Release.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -41,14 +43,9 @@
       <file leaf-file-name="Commands.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/client/command/Commands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-              <folding>
-                <marker date="1432914918343" expanded="true" signature="15070:15119" placeholder="SELECT * FRO... drop_data" />
-                <marker date="1432914918343" expanded="true" signature="21697:21919" placeholder="SELECT `char... characters" />
-                <marker date="1432914918343" expanded="true" signature="49147:49190" placeholder="UPDATE accou... " />
-                <marker date="1432914918343" expanded="true" signature="50119:50157" placeholder="INSERT INTO ipbans... " />
-              </folding>
+            <state relative-caret-position="88">
+              <caret line="86" column="23" selection-start-line="86" selection-start-column="23" selection-end-line="86" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -57,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/src/client/MapleCharacter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="242">
-              <caret line="153" column="21" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
+              <caret line="277" column="23" selection-start-line="277" selection-start-column="23" selection-end-line="277" selection-end-column="23" />
               <folding>
                 <marker date="1433081575484" expanded="true" signature="19485:19543" placeholder="UPDATE accou... " />
                 <marker date="1433081575484" expanded="true" signature="20040:20078" placeholder="INSERT INTO ipbans... " />
@@ -144,6 +141,7 @@
         <option value="$PROJECT_DIR$/src/tools/DatabaseConnection.java" />
         <option value="$PROJECT_DIR$/src/net/server/Server.java" />
         <option value="$PROJECT_DIR$/src/scripting/AbstractScriptManager.java" />
+        <option value="$PROJECT_DIR$/src/client/MapleCharacter.java" />
       </list>
     </option>
   </component>
@@ -164,8 +162,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="width" value="1018" />
-    <option name="height" value="718" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -192,82 +192,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
+              <option name="myItemId" value="source" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="MapleSolaxia Release" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MapleSolaxia Release" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dropspider" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MapleSolaxia Release" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="constants" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MapleSolaxia Release" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MapleSolaxia Release" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="command" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane />
       </pane>
       <pane id="Scope" />
       <pane id="Scratches" />
@@ -700,23 +640,26 @@
       <workItem from="1460746486806" duration="2243000" />
       <workItem from="1460751274813" duration="208000" />
       <workItem from="1460807134532" duration="6000" />
+      <workItem from="1460809345859" duration="109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3022000" />
+    <option name="totallyTimeSpent" value="3131000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1018" height="718" extended-state="7" />
-    <editor active="false" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3291367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44695258" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32807216" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -724,15 +667,13 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44695258" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295711" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -765,14 +706,90 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/client/command/Commands.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/MapleCharacter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1433081575484" expanded="true" signature="19485:19543" placeholder="UPDATE accou... " />
+            <marker date="1433081575484" expanded="true" signature="20040:20078" placeholder="INSERT INTO ipbans... " />
+            <marker date="1433081575484" expanded="true" signature="20298:20336" placeholder="SELECT id FR... accounts" />
+            <marker date="1433081575484" expanded="true" signature="20404:20451" placeholder="SELECT accou... characters" />
+            <marker date="1433081575484" expanded="true" signature="20678:20736" placeholder="UPDATE accou... " />
+            <marker date="1433081575484" expanded="true" signature="42061:42117" placeholder="DELETE FROM " />
+            <marker date="1433081575484" expanded="true" signature="45972:46038" placeholder="UPDATE chara... " />
+            <marker date="1433081575484" expanded="true" signature="46189:46225" placeholder="DELETE FROM " />
+            <marker date="1433081575484" expanded="true" signature="63132:63199" placeholder="SELECT `id`,... characters" />
+            <marker date="1433081575484" expanded="true" signature="68812:68852" placeholder="SELECT id FR... characters" />
+            <marker date="1433081575484" expanded="true" signature="69465:69505" placeholder="SELECT name characters" />
+            <marker date="1433081575484" expanded="true" signature="84771:84834" placeholder="INSERT INTO famelog... " />
+            <marker date="1433081575484" expanded="true" signature="99185:99222" placeholder="SELECT * FRO... characters" />
+            <marker date="1433081575484" expanded="true" signature="105895:105962" placeholder="SELECT mapid... trocklocations" />
+            <marker date="1433081575484" expanded="true" signature="106698:106736" placeholder="SELECT name accounts" />
+            <marker date="1433081575484" expanded="true" signature="107050:107102" placeholder="SELECT `area... area_info" />
+            <marker date="1433081575484" expanded="true" signature="107387:107445" placeholder="SELECT `name... eventstats" />
+            <marker date="1433081575484" expanded="true" signature="108178:108272" placeholder="SELECT name,... characters" />
+            <marker date="1433081575484" expanded="true" signature="108663:108710" placeholder="SELECT * FRO... queststatus" />
+            <marker date="1433081575484" expanded="true" signature="108898:108949" placeholder="SELECT * FRO... questprogress" />
+            <marker date="1433081575484" expanded="true" signature="109003:109054" placeholder="SELECT mapid... medalmaps" />
+            <marker date="1433081575484" expanded="true" signature="110511:110593" placeholder="SELECT skill... skills" />
+            <marker date="1433081575484" expanded="true" signature="111003:111066" placeholder="SELECT Skill... cooldowns" />
+            <marker date="1433081575484" expanded="true" signature="111689:111727" placeholder="DELETE FROM " />
+            <marker date="1433081575484" expanded="true" signature="111881:111928" placeholder="SELECT * FRO... skillmacros" />
+            <marker date="1433081575484" expanded="true" signature="112446:112508" placeholder="SELECT `key`... keymap" />
+            <marker date="1433081575484" expanded="true" signature="112988:113066" placeholder="SELECT `loca... savedlocations" />
+            <marker date="1433081575484" expanded="true" signature="113467:113564" placeholder="SELECT `char... famelog" />
+            <marker date="1433081575484" expanded="true" signature="118196:118240" placeholder="SELECT id FR... playernpcs" />
+            <marker date="1433081575484" expanded="true" signature="118427:118557" placeholder="INSERT INTO playernpcs... " />
+            <marker date="1433081575484" expanded="true" signature="119368:119440" placeholder="INSERT INTO playernpcs_equip... " />
+            <marker date="1433081575484" expanded="true" signature="120052:120095" placeholder="SELECT * FRO... playernpcs" />
+            <marker date="1433081575484" expanded="true" signature="137408:137486" placeholder="INSERT INTO cooldowns... " />
+            <marker date="1433081575484" expanded="true" signature="138117:138196" placeholder="UPDATE chara... " />
+            <marker date="1433081575484" expanded="true" signature="139038:139226" placeholder="INSERT INTO characters... " />
+            <marker date="1433081575484" expanded="true" signature="140522:140599" placeholder="INSERT INTO keymap... " />
+            <marker date="1433081575484" expanded="true" signature="142607:143313" placeholder="UPDATE chara... " />
+            <marker date="1433081575484" expanded="true" signature="147325:147402" placeholder="INSERT INTO keymap... " />
+            <marker date="1433081575484" expanded="true" signature="147914:148027" placeholder="INSERT INTO skillmacros... " />
+            <marker date="1433081575484" expanded="true" signature="149078:149179" placeholder="INSERT INTO skills... " />
+            <marker date="1433081575484" expanded="true" signature="149724:149817" placeholder="INSERT INTO savedlocations... " />
+            <marker date="1433081575484" expanded="true" signature="150485:150553" placeholder="INSERT INTO trocklocations... " />
+            <marker date="1433081575484" expanded="true" signature="150897:150965" placeholder="INSERT INTO trocklocations... " />
+            <marker date="1433081575484" expanded="true" signature="151420:151504" placeholder="INSERT INTO buddies... " />
+            <marker date="1433081575484" expanded="true" signature="151978:152050" placeholder="INSERT INTO area_info... " />
+            <marker date="1433081575484" expanded="true" signature="152542:152670" placeholder="INSERT INTO queststatus... " />
+            <marker date="1433081575484" expanded="true" signature="152805:152856" placeholder="INSERT INTO questprogress... " />
+            <marker date="1433081575484" expanded="true" signature="152906:152950" placeholder="INSERT INTO medalmaps... " />
+            <marker date="1433081575484" expanded="true" signature="154211:154250" placeholder="UPDATE accou... " />
+            <marker date="1433081575484" expanded="true" signature="157133:157220" placeholder="INSERT INTO notes... " />
+            <marker date="1433081575484" expanded="true" signature="162482:162532" placeholder="UPDATE chara... " />
+            <marker date="1433081575484" expanded="true" signature="162928:162980" placeholder="UPDATE chara... " />
+            <marker date="1433081575484" expanded="true" signature="163404:163456" placeholder="UPDATE chara... " />
+            <marker date="1433081575484" expanded="true" signature="167818:167867" placeholder="UPDATE `char... " />
+            <marker date="1433081575484" expanded="true" signature="171431:171481" placeholder="SELECT * FRO... notes" />
+            <marker date="1433081575484" expanded="true" signature="182415:182487" placeholder="UPDATE accou... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/ExpTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/command/Commands.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding>
-            <marker date="1432914918343" expanded="true" signature="15070:15119" placeholder="SELECT * FRO... drop_data" />
-            <marker date="1432914918343" expanded="true" signature="21697:21919" placeholder="SELECT `char... characters" />
-            <marker date="1432914918343" expanded="true" signature="49147:49190" placeholder="UPDATE accou... " />
-            <marker date="1432914918343" expanded="true" signature="50119:50157" placeholder="INSERT INTO ipbans... " />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -991,21 +1008,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/client/command/Commands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding>
-            <marker date="1432914918343" expanded="true" signature="15070:15119" placeholder="SELECT * FRO... drop_data" />
-            <marker date="1432914918343" expanded="true" signature="21697:21919" placeholder="SELECT `char... characters" />
-            <marker date="1432914918343" expanded="true" signature="49147:49190" placeholder="UPDATE accou... " />
-            <marker date="1432914918343" expanded="true" signature="50119:50157" placeholder="INSERT INTO ipbans... " />
-          </folding>
+        <state relative-caret-position="88">
+          <caret line="86" column="23" selection-start-line="86" selection-start-column="23" selection-end-line="86" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/client/MapleCharacter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
-          <caret line="153" column="21" selection-start-line="153" selection-start-column="21" selection-end-line="153" selection-end-column="21" />
+          <caret line="277" column="23" selection-start-line="277" selection-start-column="23" selection-end-line="277" selection-end-column="23" />
           <folding>
             <marker date="1433081575484" expanded="true" signature="19485:19543" placeholder="UPDATE accou... " />
             <marker date="1433081575484" expanded="true" signature="20040:20078" placeholder="INSERT INTO ipbans... " />

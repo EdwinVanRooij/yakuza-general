@@ -1,0 +1,5 @@
+# Ignore compile/build output
+out/
+
+# User specific
+.idea/
