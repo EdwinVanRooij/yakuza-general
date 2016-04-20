@@ -40,7 +40,7 @@ public class DatabaseConnection {
             }
             try {
 //                return DriverManager.getConnection(ServerConstants.DB_URL, ServerConstants.DB_USER, ServerConstants.DB_PASS);
-                return DriverManager.getConnection("jdbc:mysql://localhost:3306/maple_maplelife", "solaxia", "12345");
+                return DriverManager.getConnection("jdbc:mysql://localhost:3306/maple_maplelife", "dbuser", "dl34od903jfDow");
             } catch (SQLException e) {
                 System.out.println("[SEVERE] Unable to make database connection.");
                 e.printStackTrace();
