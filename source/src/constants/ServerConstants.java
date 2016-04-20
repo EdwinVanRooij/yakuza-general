@@ -14,11 +14,6 @@ public class ServerConstants {
             //SERVER
             ServerConstants.HOST = p.getProperty("HOST");
 
-            //SQL DATABASE
-            ServerConstants.DB_URL = p.getProperty("URL");
-            ServerConstants.DB_USER = p.getProperty("DB_USER");
-            ServerConstants.DB_PASS = p.getProperty("DB_PASS");
-
             //OTHER
             ServerConstants.JAVA_8 = p.getProperty("JAVA8").equalsIgnoreCase("TRUE");
             ServerConstants.SHUTDOWNHOOK = p.getProperty("SHUTDOWNHOOK").equalsIgnoreCase("true");
