@@ -31,21 +31,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TimeZone;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
@@ -2535,7 +2522,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
     }
 
     public boolean isGM() {
-        return gmLevel > 0;
+        return gmLevel > -1;
+        // todo: for testing purposes, everyone is a gm right now.
     }
 
     public boolean isHidden() {
@@ -2676,7 +2664,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             final String names = (getMedalText() + name);
             client.getWorldServer().broadcastPacket(MaplePacketCreator.serverNotice(6, String.format(LEVEL_200, names, names)));
         }
-        levelUpMessages();
+        showLevelupMessage();
         guildUpdate();
     }
 
@@ -2694,98 +2682,67 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         client.announce(MaplePacketCreator.updatePlayerStats(statup, this));
     }
 
-    private void levelUpMessages() {
+    private void showLevelupMessage() {
         if (level % 5 != 0) { //Performance FTW?
             return;
         }
-        if (level == 5) {
-            yellowMessage("Aww, you're level 5, how cute!");
-        } else if (level == 10) {
-            yellowMessage("Henesys Party Quest is now open to you! Head over to Henesys, find some friends, and try it out!");
-        } else if (level == 15) {
-            yellowMessage("Half-way to your 2nd job advancement, nice work!");
-        } else if (level == 20) {
-            yellowMessage("You can almost Kerning Party Quest!");
-        } else if (level == 25) {
-            yellowMessage("You seem to be improving, but you are still not ready to move on to the next step.");
-        } else if (level == 30) {
-            yellowMessage("You have finally reached level 30! Try job advancing, after that try the Mushroom Kingdom!");
-        } else if (level == 35) {
-            yellowMessage("Hey did you hear about this mall that opened in Kerning? Try visiting the Kerning Mall.");
-        } else if (level == 40) {
-            yellowMessage("Do @rates to see what all your rates are!");
-        } else if (level == 45) {
-            yellowMessage("I heard that a rock and roll artist died during the grand opening of the Kerning Mall. People are naming him the Spirit of Rock.");
-        } else if (level == 50) {
-            yellowMessage("You seem to be growing very fast, would you like to test your new found strength with the mighty Zakum?");
-        } else if (level == 55) {
-            yellowMessage("You can now try out the Ludibrium Maze Party Quest!");
-        } else if (level == 60) {
-            yellowMessage("Feels good to be near the end of 2nd job, doesn't it?");
-        } else if (level == 65) {
-            yellowMessage("You're only 5 more levels away from 3rd job, not bad!");
-        } else if (level == 70) {
-            yellowMessage("I see many people wearing a teddy bear helmet. I should ask someone where they got it from.");
-        } else if (level == 75) {
-            yellowMessage("You have reached level 3 quarters!");
-        } else if (level == 80) {
-            yellowMessage("You think you are powerful enough? Try facing horntail!");
-        } else if (level == 85) {
-            yellowMessage("Did you know? The majority of people who hit level 85 in Solaxia don't live to be 85 years old?");
-        } else if (level == 90) {
-            yellowMessage("Hey do you like the amusement park? I heard Spooky Wood is the best theme park around. I heard they sell cute teddy-bears.");
-        } else if (level == 95) {
-            yellowMessage("100% of people who hit level 95 in Solaxia don't live to be 95 years old.");
-        } else if (level == 100) {
-            yellowMessage("Your drop rate has increased to 3x since you have reached level 100!");
-        } else if (level == 105) {
-            yellowMessage("Have you ever been to leafre? I heard they have dragons!");
-        } else if (level == 110) {
-            yellowMessage("I see many people wearing a teddy bear helmet. I should ask someone where they got it from.");
-        } else if (level == 115) {
-            yellowMessage("I bet all you can think of is level 120, huh? Level 115 gets no love.");
-        } else if (level == 120) {
-            yellowMessage("Are you ready to learn from the masters? Head over to your job instructor!");
-        } else if (level == 125) {
-            yellowMessage("The struggle for mastery books has begun, huh?");
-        } else if (level == 130) {
-            yellowMessage("You should try Temple of Time. It should be pretty decent EXP.");
-        } else if (level == 135) {
-            yellowMessage("I hope you're still not struggling for mastery books!");
-        } else if (level == 140) {
-            yellowMessage("You're well into 4th job at this point, great work!");
-        } else if (level == 145) {
-            yellowMessage("Level 145 is serious business!");
-        } else if (level == 150) {
-            yellowMessage("You have becomed quite strong, but the journey is not yet over.");
-        } else if (level == 155) {
-            yellowMessage("At level 155, Zakum should be a joke to you. Nice job!");
-        } else if (level == 160) {
-            yellowMessage("Level 160 is pretty impressive. Try taking a picture and putting it on Instagram.");
-        } else if (level == 165) {
-            yellowMessage("At this level, you should start looking into doing some boss runs.");
-        } else if (level == 170) {
-            yellowMessage("Level 170, huh? You have the heart of a champion.");
-        } else if (level == 175) {
-            yellowMessage("You came a long way from level 1. Amazing job so far.");
-        } else if (level == 180) {
-            yellowMessage("Have you ever tried taking a boss on by yourself? It is quite difficult.");
-        } else if (level == 185) {
-            yellowMessage("Legend has it that you're a legend.");
-        } else if (level == 190) {
-            yellowMessage("You only have 10 more levels to go until you hit 200!");
-        } else if (level == 195) {
-            yellowMessage("Nothing is stopping you at this point, level 195!");
-        } else if (level == 200) {
-            yellowMessage("Your drop rate has increased to 4x since you have reached level 200!");
+
+        String[] messages = new String[] {
+                "Aww, you're level 5, how cute!",
+                "Henesys Party Quest is now open to you! Head over to Henesys, find some friends, and try it out!",
+                "Half-way to your 2nd job advancement, nice work!",
+                "You can almost Kerning Party Quest!",
+                "You seem to be improving, but you are still not ready to move on to the next step.",
+                "You have finally reached level 30! Try job advancing, after that try the Mushroom Kingdom!",
+                "Hey did you hear about this mall that opened in Kerning? Try visiting the Kerning Mall.",
+                "Do @rates to see what all your rates are!",
+                "I heard that a rock and roll artist died during the grand opening of the Kerning Mall. People are naming him the Spirit of Rock.",
+                "You seem to be growing very fast, would you like to test your new found strength with the mighty Zakum?",
+                "You can now try out the Ludibrium Maze Party Quest!",
+                "Feels good to be near the end of 2nd job, doesn't it?",
+                "You're only 5 more levels away from 3rd job, not bad!",
+                "I see many people wearing a teddy bear helmet. I should ask someone where they got it from.",
+                "You have reached level 3 quarters!",
+                "You think you are powerful enough? Try facing horntail!",
+                "Did you know? The majority of people who hit level 85 in Solaxia don't live to be 85 years old?",
+                "Hey do you like the amusement park? I heard Spooky Wood is the best theme park around. I heard they sell cute teddy-bears.",
+                "100% of people who hit level 95 in Solaxia don't live to be 95 years old.",
+                "Your drop rate has increased to 3x since you have reached level 100!",
+                "Have you ever been to leafre? I heard they have dragons!",
+                "I see many people wearing a teddy bear helmet. I should ask someone where they got it from.",
+                "I bet all you can think of is level 120, huh? Level 115 gets no love.",
+                "Are you ready to learn from the masters? Head over to your job instructor!",
+                "The struggle for mastery books has begun, huh?",
+                "You should try Temple of Time. It should be pretty decent EXP.",
+                "I hope you're still not struggling for mastery books!",
+                "You're well into 4th job at this point, great work!",
+                "Level 145 is serious business!",
+                "You have becomed quite strong, but the journey is not yet over.",
+                "At level 155, Zakum should be a joke to you. Nice job!",
+                "Level 160 is pretty impressive. Try taking a picture and putting it on Instagram.",
+                "At this level, you should start looking into doing some boss runs.",
+                "Level 170, huh? You have the heart of a champion.",
+                "You came a long way from level 1. Amazing job so far.",
+                "Have you ever tried taking a boss on by yourself? It is quite difficult.",
+                "Legend has it that you're a legend.",
+                "You only have 10 more levels to go until you hit 200!",
+                "Nothing is stopping you at this point, level 195!",
+                "Your drop rate has increased to 4x since you have reached level 200!"
+        };
+        HashMap<Integer, String> map = new HashMap<>();
+        int count = 0;
+        for (int i = 5; i < 200; i+=5) {
+            map.put(i, messages[count]);
+            count ++;
         }
+        yellowMessage(map.get(level));
     }
 
     public static MapleCharacter loadCharFromDB(int charid, MapleClient client, boolean channelserver) throws SQLException {
         try {
-            MapleCharacter ret = new MapleCharacter();
-            ret.client = client;
-            ret.id = charid;
+            MapleCharacter result = new MapleCharacter();
+            result.client = client;
+            result.id = charid;
             Connection con = DatabaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE id = ?");
             ps.setInt(1, charid);
@@ -2795,80 +2752,80 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.close();
                 throw new RuntimeException("Loading char failed (not found)");
             }
-            ret.name = rs.getString("name");
-            ret.level = rs.getInt("level");
-            ret.fame = rs.getInt("fame");
-            ret.str = rs.getInt("str");
-            ret.dex = rs.getInt("dex");
-            ret.int_ = rs.getInt("int");
-            ret.luk = rs.getInt("luk");
-            ret.exp.set(rs.getInt("exp"));
-            ret.gachaexp.set(rs.getInt("gachaexp"));
-            ret.hp = rs.getInt("hp");
-            ret.maxhp = rs.getInt("maxhp");
-            ret.mp = rs.getInt("mp");
-            ret.maxmp = rs.getInt("maxmp");
-            ret.hpMpApUsed = rs.getInt("hpMpUsed");
-            ret.hasMerchant = rs.getInt("HasMerchant") == 1;
+            result.name = rs.getString("name");
+            result.level = rs.getInt("level");
+            result.fame = rs.getInt("fame");
+            result.str = rs.getInt("str");
+            result.dex = rs.getInt("dex");
+            result.int_ = rs.getInt("int");
+            result.luk = rs.getInt("luk");
+            result.exp.set(rs.getInt("exp"));
+            result.gachaexp.set(rs.getInt("gachaexp"));
+            result.hp = rs.getInt("hp");
+            result.maxhp = rs.getInt("maxhp");
+            result.mp = rs.getInt("mp");
+            result.maxmp = rs.getInt("maxmp");
+            result.hpMpApUsed = rs.getInt("hpMpUsed");
+            result.hasMerchant = rs.getInt("HasMerchant") == 1;
             String[] skillPoints = rs.getString("sp").split(",");
-            for (int i = 0; i < ret.remainingSp.length; i++) {
-                ret.remainingSp[i] = Integer.parseInt(skillPoints[i]);
+            for (int i = 0; i < result.remainingSp.length; i++) {
+                result.remainingSp[i] = Integer.parseInt(skillPoints[i]);
             }
-            ret.remainingAp = rs.getInt("ap");
-            ret.meso.set(rs.getInt("meso"));
-            ret.merchantmeso = rs.getInt("MerchantMesos");
-            ret.gmLevel = rs.getInt("gm");
-            ret.skinColor = MapleSkinColor.getById(rs.getInt("skincolor"));
-            ret.gender = rs.getInt("gender");
-            ret.job = MapleJob.getById(rs.getInt("job"));
-            ret.finishedDojoTutorial = rs.getInt("finishedDojoTutorial") == 1;
-            ret.vanquisherKills = rs.getInt("vanquisherKills");
-            ret.omokwins = rs.getInt("omokwins");
-            ret.omoklosses = rs.getInt("omoklosses");
-            ret.omokties = rs.getInt("omokties");
-            ret.matchcardwins = rs.getInt("matchcardwins");
-            ret.matchcardlosses = rs.getInt("matchcardlosses");
-            ret.matchcardties = rs.getInt("matchcardties");
-            ret.hair = rs.getInt("hair");
-            ret.face = rs.getInt("face");
-            ret.accountid = rs.getInt("accountid");
-            ret.mapid = rs.getInt("map");
-            ret.initialSpawnPoint = rs.getInt("spawnpoint");
-            ret.world = rs.getByte("world");
-            ret.rank = rs.getInt("rank");
-            ret.rankMove = rs.getInt("rankMove");
-            ret.jobRank = rs.getInt("jobRank");
-            ret.jobRankMove = rs.getInt("jobRankMove");
+            result.remainingAp = rs.getInt("ap");
+            result.meso.set(rs.getInt("meso"));
+            result.merchantmeso = rs.getInt("MerchantMesos");
+            result.gmLevel = rs.getInt("gm");
+            result.skinColor = MapleSkinColor.getById(rs.getInt("skincolor"));
+            result.gender = rs.getInt("gender");
+            result.job = MapleJob.getById(rs.getInt("job"));
+            result.finishedDojoTutorial = rs.getInt("finishedDojoTutorial") == 1;
+            result.vanquisherKills = rs.getInt("vanquisherKills");
+            result.omokwins = rs.getInt("omokwins");
+            result.omoklosses = rs.getInt("omoklosses");
+            result.omokties = rs.getInt("omokties");
+            result.matchcardwins = rs.getInt("matchcardwins");
+            result.matchcardlosses = rs.getInt("matchcardlosses");
+            result.matchcardties = rs.getInt("matchcardties");
+            result.hair = rs.getInt("hair");
+            result.face = rs.getInt("face");
+            result.accountid = rs.getInt("accountid");
+            result.mapid = rs.getInt("map");
+            result.initialSpawnPoint = rs.getInt("spawnpoint");
+            result.world = rs.getByte("world");
+            result.rank = rs.getInt("rank");
+            result.rankMove = rs.getInt("rankMove");
+            result.jobRank = rs.getInt("jobRank");
+            result.jobRankMove = rs.getInt("jobRankMove");
             int mountexp = rs.getInt("mountexp");
             int mountlevel = rs.getInt("mountlevel");
             int mounttiredness = rs.getInt("mounttiredness");
-            ret.guildid = rs.getInt("guildid");
-            ret.guildrank = rs.getInt("guildrank");
-            ret.allianceRank = rs.getInt("allianceRank");
-            ret.familyId = rs.getInt("familyId");
-            ret.bookCover = rs.getInt("monsterbookcover");
-            ret.monsterbook = new MonsterBook();
-            ret.monsterbook.loadCards(charid);
-            ret.vanquisherStage = rs.getInt("vanquisherStage");
-            ret.dojoPoints = rs.getInt("dojoPoints");
-            ret.dojoStage = rs.getInt("lastDojoStage");
-            ret.dataString = rs.getString("dataString");
-            if (ret.guildid > 0) {
-                ret.mgc = new MapleGuildCharacter(ret);
+            result.guildid = rs.getInt("guildid");
+            result.guildrank = rs.getInt("guildrank");
+            result.allianceRank = rs.getInt("allianceRank");
+            result.familyId = rs.getInt("familyId");
+            result.bookCover = rs.getInt("monsterbookcover");
+            result.monsterbook = new MonsterBook();
+            result.monsterbook.loadCards(charid);
+            result.vanquisherStage = rs.getInt("vanquisherStage");
+            result.dojoPoints = rs.getInt("dojoPoints");
+            result.dojoStage = rs.getInt("lastDojoStage");
+            result.dataString = rs.getString("dataString");
+            if (result.guildid > 0) {
+                result.mgc = new MapleGuildCharacter(result);
             }
             int buddyCapacity = rs.getInt("buddyCapacity");
-            ret.buddylist = new BuddyList(buddyCapacity);
-            ret.getInventory(MapleInventoryType.EQUIP).setSlotLimit(rs.getByte("equipslots"));
-            ret.getInventory(MapleInventoryType.USE).setSlotLimit(rs.getByte("useslots"));
-            ret.getInventory(MapleInventoryType.SETUP).setSlotLimit(rs.getByte("setupslots"));
-            ret.getInventory(MapleInventoryType.ETC).setSlotLimit(rs.getByte("etcslots"));
-            for (Pair<Item, MapleInventoryType> item : ItemFactory.INVENTORY.loadItems(ret.id, !channelserver)) {
-                ret.getInventory(item.getRight()).addFromDB(item.getLeft());
+            result.buddylist = new BuddyList(buddyCapacity);
+            result.getInventory(MapleInventoryType.EQUIP).setSlotLimit(rs.getByte("equipslots"));
+            result.getInventory(MapleInventoryType.USE).setSlotLimit(rs.getByte("useslots"));
+            result.getInventory(MapleInventoryType.SETUP).setSlotLimit(rs.getByte("setupslots"));
+            result.getInventory(MapleInventoryType.ETC).setSlotLimit(rs.getByte("etcslots"));
+            for (Pair<Item, MapleInventoryType> item : ItemFactory.INVENTORY.loadItems(result.id, !channelserver)) {
+                result.getInventory(item.getRight()).addFromDB(item.getLeft());
                 Item itemz = item.getLeft();
                 if (itemz.getPetId() > -1) {
                     MaplePet pet = itemz.getPet();
                     if (pet != null && pet.isSummoned()) {
-                        ret.addPet(pet);
+                        result.addPet(pet);
                     }
                     continue;
                 }
@@ -2880,43 +2837,43 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                             ring.equip();
                         }
                         if (ring.getItemId() > 1112012) {
-                            ret.addFriendshipRing(ring);
+                            result.addFriendshipRing(ring);
                         } else {
-                            ret.addCrushRing(ring);
+                            result.addCrushRing(ring);
                         }
                     }
                 }
             }
             if (channelserver) {
                 MapleMapFactory mapFactory = client.getChannelServer().getMapFactory();
-                ret.map = mapFactory.getMap(ret.mapid);
-                if (ret.map == null) {
-                    ret.map = mapFactory.getMap(100000000);
+                result.map = mapFactory.getMap(result.mapid);
+                if (result.map == null) {
+                    result.map = mapFactory.getMap(100000000);
                 }
-                MaplePortal portal = ret.map.getPortal(ret.initialSpawnPoint);
+                MaplePortal portal = result.map.getPortal(result.initialSpawnPoint);
                 if (portal == null) {
-                    portal = ret.map.getPortal(0);
-                    ret.initialSpawnPoint = 0;
+                    portal = result.map.getPortal(0);
+                    result.initialSpawnPoint = 0;
                 }
-                ret.setPosition(portal.getPosition());
+                result.setPosition(portal.getPosition());
                 int partyid = rs.getInt("party");
-                MapleParty party = Server.getInstance().getWorld(ret.world).getParty(partyid);
+                MapleParty party = Server.getInstance().getWorld(result.world).getParty(partyid);
                 if (party != null) {
-                    ret.mpc = party.getMemberById(ret.id);
-                    if (ret.mpc != null) {
-                        ret.party = party;
+                    result.mpc = party.getMemberById(result.id);
+                    if (result.mpc != null) {
+                        result.party = party;
                     }
                 }
                 int messengerid = rs.getInt("messengerid");
                 int position = rs.getInt("messengerposition");
                 if (messengerid > 0 && position < 4 && position > -1) {
-                    MapleMessenger messenger = Server.getInstance().getWorld(ret.world).getMessenger(messengerid);
+                    MapleMessenger messenger = Server.getInstance().getWorld(result.world).getMessenger(messengerid);
                     if (messenger != null) {
-                        ret.messenger = messenger;
-                        ret.messengerposition = position;
+                        result.messenger = messenger;
+                        result.messengerposition = position;
                     }
                 }
-                ret.loggedIn = true;
+                result.loggedIn = true;
             }
             rs.close();
             ps.close();
@@ -2927,61 +2884,61 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             byte r = 0;
             while (rs.next()) {
                 if (rs.getInt("vip") == 1) {
-                    ret.viptrockmaps.add(rs.getInt("mapid"));
+                    result.viptrockmaps.add(rs.getInt("mapid"));
                     v++;
                 } else {
-                    ret.trockmaps.add(rs.getInt("mapid"));
+                    result.trockmaps.add(rs.getInt("mapid"));
                     r++;
                 }
             }
             while (v < 10) {
-                ret.viptrockmaps.add(999999999);
+                result.viptrockmaps.add(999999999);
                 v++;
             }
             while (r < 5) {
-                ret.trockmaps.add(999999999);
+                result.trockmaps.add(999999999);
                 r++;
             }
             rs.close();
             ps.close();
             ps = con.prepareStatement("SELECT name FROM accounts WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, ret.accountid);
+            ps.setInt(1, result.accountid);
             rs = ps.executeQuery();
             if (rs.next()) {
-                ret.getClient().setAccountName(rs.getString("name"));
+                result.getClient().setAccountName(rs.getString("name"));
             }
             rs.close();
             ps.close();
             ps = con.prepareStatement("SELECT `area`,`info` FROM area_info WHERE charid = ?");
-            ps.setInt(1, ret.id);
+            ps.setInt(1, result.id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                ret.area_info.put(rs.getShort("area"), rs.getString("info"));
+                result.area_info.put(rs.getShort("area"), rs.getString("info"));
             }
             rs.close();
             ps.close();
             ps = con.prepareStatement("SELECT `name`,`info` FROM eventstats WHERE characterid = ?");
-            ps.setInt(1, ret.id);
+            ps.setInt(1, result.id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
                 if (rs.getString("name").equals("rescueGaga")) {
-                    ret.events.put(name, new RescueGaga(rs.getInt("info")));
+                    result.events.put(name, new RescueGaga(rs.getInt("info")));
                 }
                 //ret.events = new MapleEvents(new RescueGaga(rs.getInt("rescuegaga")), new ArtifactHunt(rs.getInt("artifacthunt")));
             }
             rs.close();
             ps.close();
-            ret.cashshop = new CashShop(ret.accountid, ret.id, ret.getJobType());
-            ret.autoban = new AutobanManager(ret);
-            ret.marriageRing = null; //for now
-            ps = con.prepareStatement("SELECT name, level FROM characters WHERE accountid = ? AND id != ? ORDER BY level DESC limit 1");
-            ps.setInt(1, ret.accountid);
+            result.cashshop = new CashShop(result.accountid, result.id, result.getJobType());
+            result.autoban = new AutobanManager(result);
+            result.marriageRing = null; //for now
+            ps = con.prepareStatement("SELECT nameeee, level FROM characters WHERE accountid = ? AND id != ? ORDER BY level DESC limit 1");
+            ps.setInt(1, result.accountid);
             ps.setInt(2, charid);
             rs = ps.executeQuery();
             if (rs.next()) {
-                ret.linkedName = rs.getString("name");
-                ret.linkedLevel = rs.getInt("level");
+                result.linkedName = rs.getString("name");
+                result.linkedLevel = rs.getInt("level");
             }
             rs.close();
             ps.close();
@@ -3000,7 +2957,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                             status.setCompletionTime(cTime * 1000);
                         }
                         status.setForfeited(rs.getInt("forfeited"));
-                        ret.quests.put(q.getId(), status);
+                        result.quests.put(q.getId(), status);
                         pse.setInt(1, rs.getInt("queststatusid"));
                         try (ResultSet rsProgress = pse.executeQuery()) {
                             while (rsProgress.next()) {
@@ -3022,12 +2979,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.setInt(1, charid);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    ret.skills.put(SkillFactory.getSkill(rs.getInt("skillid")), new SkillEntry(rs.getByte("skilllevel"), rs.getInt("masterlevel"), rs.getLong("expiration")));
+                    result.skills.put(SkillFactory.getSkill(rs.getInt("skillid")), new SkillEntry(rs.getByte("skilllevel"), rs.getInt("masterlevel"), rs.getLong("expiration")));
                 }
                 rs.close();
                 ps.close();
                 ps = con.prepareStatement("SELECT SkillID,StartTime,length FROM cooldowns WHERE charid = ?");
-                ps.setInt(1, ret.getId());
+                ps.setInt(1, result.getId());
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     final int skillid = rs.getInt("SkillID");
@@ -3035,12 +2992,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                     if (skillid != 5221999 && (length + startTime < System.currentTimeMillis())) {
                         continue;
                     }
-                    ret.giveCoolDowns(skillid, startTime, length);
+                    result.giveCoolDowns(skillid, startTime, length);
                 }
                 rs.close();
                 ps.close();
                 ps = con.prepareStatement("DELETE FROM cooldowns WHERE charid = ?");
-                ps.setInt(1, ret.getId());
+                ps.setInt(1, result.getId());
                 ps.executeUpdate();
                 ps.close();
                 ps = con.prepareStatement("SELECT * FROM skillmacros WHERE characterid = ?");
@@ -3049,7 +3006,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 while (rs.next()) {
                     int position = rs.getInt("position");
                     SkillMacro macro = new SkillMacro(rs.getInt("skill1"), rs.getInt("skill2"), rs.getInt("skill3"), rs.getString("name"), rs.getInt("shout"), position);
-                    ret.skillMacros[position] = macro;
+                    result.skillMacros[position] = macro;
                 }
                 rs.close();
                 ps.close();
@@ -3060,7 +3017,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                     int key = rs.getInt("key");
                     int type = rs.getInt("type");
                     int action = rs.getInt("action");
-                    ret.keymap.put(Integer.valueOf(key), new MapleKeyBinding(type, action));
+                    result.keymap.put(Integer.valueOf(key), new MapleKeyBinding(type, action));
                 }
                 rs.close();
                 ps.close();
@@ -3068,38 +3025,38 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.setInt(1, charid);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    ret.savedLocations[SavedLocationType.valueOf(rs.getString("locationtype")).ordinal()] = new SavedLocation(rs.getInt("map"), rs.getInt("portal"));
+                    result.savedLocations[SavedLocationType.valueOf(rs.getString("locationtype")).ordinal()] = new SavedLocation(rs.getInt("map"), rs.getInt("portal"));
                 }
                 rs.close();
                 ps.close();
                 ps = con.prepareStatement("SELECT `characterid_to`,`when` FROM famelog WHERE characterid = ? AND DATEDIFF(NOW(),`when`) < 30");
                 ps.setInt(1, charid);
                 rs = ps.executeQuery();
-                ret.lastfametime = 0;
-                ret.lastmonthfameids = new ArrayList<>(31);
+                result.lastfametime = 0;
+                result.lastmonthfameids = new ArrayList<>(31);
                 while (rs.next()) {
-                    ret.lastfametime = Math.max(ret.lastfametime, rs.getTimestamp("when").getTime());
-                    ret.lastmonthfameids.add(Integer.valueOf(rs.getInt("characterid_to")));
+                    result.lastfametime = Math.max(result.lastfametime, rs.getTimestamp("when").getTime());
+                    result.lastmonthfameids.add(Integer.valueOf(rs.getInt("characterid_to")));
                 }
                 rs.close();
                 ps.close();
-                ret.buddylist.loadFromDb(charid);
-                ret.storage = MapleStorage.loadOrCreateFromDB(ret.accountid, ret.world);
-                ret.recalcLocalStats();
+                result.buddylist.loadFromDb(charid);
+                result.storage = MapleStorage.loadOrCreateFromDB(result.accountid, result.world);
+                result.recalcLocalStats();
                 //ret.resetBattleshipHp();
-                ret.silentEnforceMaxHpMp();
+                result.silentEnforceMaxHpMp();
             }
-            int mountid = ret.getJobType() * 10000000 + 1004;
-            if (ret.getInventory(MapleInventoryType.EQUIPPED).getItem((short) -18) != null) {
-                ret.maplemount = new MapleMount(ret, ret.getInventory(MapleInventoryType.EQUIPPED).getItem((short) -18).getItemId(), mountid);
+            int mountid = result.getJobType() * 10000000 + 1004;
+            if (result.getInventory(MapleInventoryType.EQUIPPED).getItem((short) -18) != null) {
+                result.maplemount = new MapleMount(result, result.getInventory(MapleInventoryType.EQUIPPED).getItem((short) -18).getItemId(), mountid);
             } else {
-                ret.maplemount = new MapleMount(ret, 0, mountid);
+                result.maplemount = new MapleMount(result, 0, mountid);
             }
-            ret.maplemount.setExp(mountexp);
-            ret.maplemount.setLevel(mountlevel);
-            ret.maplemount.setTiredness(mounttiredness);
-            ret.maplemount.setActive(false);
-            return ret;
+            result.maplemount.setExp(mountexp);
+            result.maplemount.setLevel(mountlevel);
+            result.maplemount.setTiredness(mounttiredness);
+            result.maplemount.setActive(false);
+            return result;
         } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
@@ -3132,13 +3089,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         }
     }
 
-    public static class MapleCoolDownValueHolder {
+    private static class MapleCoolDownValueHolder {
 
         public int skillId;
         public long startTime, length;
         public ScheduledFuture<?> timer;
 
-        public MapleCoolDownValueHolder(int skillId, long startTime, long length, ScheduledFuture<?> timer) {
+        MapleCoolDownValueHolder(int skillId, long startTime, long length, ScheduledFuture<?> timer) {
             super();
             this.skillId = skillId;
             this.startTime = startTime;
