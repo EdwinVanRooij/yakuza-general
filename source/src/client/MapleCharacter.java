@@ -2932,7 +2932,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             result.cashshop = new CashShop(result.accountid, result.id, result.getJobType());
             result.autoban = new AutobanManager(result);
             result.marriageRing = null; //for now
-            ps = con.prepareStatement("SELECT nameeee, level FROM characters WHERE accountid = ? AND id != ? ORDER BY level DESC limit 1");
+            ps = con.prepareStatement("SELECT name, level FROM characters WHERE accountid = ? AND id != ? ORDER BY level DESC limit 1");
             ps.setInt(1, result.accountid);
             ps.setInt(2, charid);
             rs = ps.executeQuery();
