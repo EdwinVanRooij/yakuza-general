@@ -101,7 +101,6 @@ public class AutobanManager {
 	 * 7: Chat<br>
      *
      * @param type type
-     * @return Timestamp checker
      */
     public void setTimestamp(int type, int time, int times) {
         if (this.timestamp[type] == time) {  
