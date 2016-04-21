@@ -2375,10 +2375,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         }
     }
 
-    public int gmLevel() {
-        return gmLevel;
-    }
-
     public String guildCost() {
         return nf.format(MapleGuild.CREATE_GUILD_COST);
     }
@@ -4739,7 +4735,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     @Override
     public void sendSpawnData(MapleClient client) {
-        if (!this.isHidden() || client.getPlayer().gmLevel() > 0) {
+        if (!this.isHidden() || client.getPlayer().isGM()) {
             client.announce(MaplePacketCreator.spawnPlayerMapobject(this));
         }
 

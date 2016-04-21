@@ -312,7 +312,7 @@ public class Commands {
 
     public static boolean executePlayerCommand(MapleClient c, String[] sub, char heading) {
         MapleCharacter player = c.getPlayer();
-        if (heading == '!' && player.gmLevel() == 0) {
+        if (heading == '!' && !player.isGM()) {
             player.yellowMessage("You may not use !" + sub[0] + ", please try /" + sub[0]);
             return false;
         }
@@ -362,7 +362,7 @@ public class Commands {
                 player.yellowMessage("Solaxia has been online for " + days + " days " + hours + " hours " + minutes + " minutes and " + seconds + " seconds.");
                 break;
             case "gacha":
-                if (player.gmLevel() == 0) { // Sigh, need it for now...
+                if (!player.isGM()) { // Sigh, need it for now...
                     player.yellowMessage("Player Command " + heading + sub[0] + " does not exist, see @help for a list of commands.");
                     return false;
                 }
@@ -627,7 +627,7 @@ public class Commands {
                 }
                 break;
             default:
-                if (player.gmLevel() == 0) {
+                if (!player.isGM()) {
                     player.yellowMessage("Player Command " + heading + sub[0] + " does not exist, see @help for a list of commands.");
                 }
                 return false;
@@ -858,9 +858,6 @@ public class Commands {
                         return true;
                     }
                 }
-            }
-            if (player.gmLevel() < victim.gmLevel()) {
-                victim = player;
             }
             victim.getClient().disconnect(false, false);
         } else if (sub[0].equals("exprate")) {
