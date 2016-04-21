@@ -186,7 +186,7 @@ public enum RecvOpcode {
     USE_HAMMER(0x104);
     private int code = -2;
 
-    private RecvOpcode(int code) {
+    RecvOpcode(int code) {
         this.code = code;
     }
 

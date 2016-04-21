@@ -502,7 +502,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.setInt(2, accountid);
                 ps.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
     }
@@ -539,7 +539,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 			rs.close();
             ps.close();
             return ret;
-        } catch (SQLException ex) {
+        } catch (SQLException ignored) {
         } finally {
             try {
                 if (ps != null && !ps.isClosed()) {
@@ -548,7 +548,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 				if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException ignored) {
             }
         }
         return false;
@@ -619,7 +619,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         }
     }
 
-    public void setLastCombo(long time) {;
+    public void setLastCombo(long time) {
         lastcombo = time;
     }
 
@@ -1076,12 +1076,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 updatePartyMemberHP();
             }
             if (getMap().getHPDec() > 0) {
-                hpDecreaseTask = TimerManager.getInstance().schedule(new Runnable() {
-                    @Override
-                    public void run() {
-                        doHurtHp();
-                    }
-                }, 10000);
+                hpDecreaseTask = TimerManager.getInstance().schedule(() -> doHurtHp(), 10000);
             }
         }
     }
@@ -1130,12 +1125,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             final int skilllevel = getSkillLevel(BerserkX);
             if (skilllevel > 0) {
                 Berserk = chr.getHp() * 100 / chr.getMaxHp() < BerserkX.getEffect(skilllevel).getX();
-                BerserkSchedule = TimerManager.getInstance().register(new Runnable() {
-                    @Override
-                    public void run() {
-                        client.announce(MaplePacketCreator.showOwnBerserk(skilllevel, Berserk));
-                        getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBerserk(getId(), skilllevel, Berserk), false);
-                    }
+                BerserkSchedule = TimerManager.getInstance().register(() -> {
+                    client.announce(MaplePacketCreator.showOwnBerserk(skilllevel, Berserk));
+                    getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBerserk(getId(), skilllevel, Berserk), false);
                 }, 5000, 3000);
             }
         }
@@ -1284,12 +1276,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     public void disableDoor() {
         canDoor = false;
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                canDoor = true;
-            }
-        }, 5000);
+        TimerManager.getInstance().schedule(() -> canDoor = true, 5000);
     }
 
     public void disbandGuild() {
@@ -1298,7 +1285,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         }
         try {
             Server.getInstance().disbandGuild(guildid);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -1339,12 +1326,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                     return;
                 }
             }
-            TimerManager.getInstance().schedule(new Runnable() {
-                @Override
-                public void run() {
-                    dispelDebuff(disease);
-                }
-            }, skill.getDuration());
+            TimerManager.getInstance().schedule(() -> dispelDebuff(disease), skill.getDuration());
 
             diseases.put(disease, new DiseaseValueHolder(System.currentTimeMillis(), skill.getDuration()));
             client.announce(MaplePacketCreator.giveDebuff(debuff, skill));
@@ -1410,12 +1392,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             return;
         }
         addHP(-getMap().getHPDec());
-        hpDecreaseTask = TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                doHurtHp();
-            }
-        }, 10000);
+        hpDecreaseTask = TimerManager.getInstance().schedule(() -> doHurtHp(), 10000);
     }
 
     public void dropMessage(String message) {
@@ -1473,39 +1450,36 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     public void expirationTask() {
         if (expiretask == null) {
-            expiretask = TimerManager.getInstance().register(new Runnable() {
-                @Override
-                public void run() {
-                    long expiration, currenttime = System.currentTimeMillis();
-                    Set<Skill> keys = getSkills().keySet();
-                    for (Iterator<Skill> i = keys.iterator(); i.hasNext();) {
-                        Skill key = i.next();
-                        SkillEntry skill = getSkills().get(key);
-                        if (skill.expiration != -1 && skill.expiration < currenttime) {
-                            changeSkillLevel(key, (byte) -1, 0, -1);
-                        }
+            expiretask = TimerManager.getInstance().register(() -> {
+                long expiration, currenttime = System.currentTimeMillis();
+                Set<Skill> keys = getSkills().keySet();
+                for (Iterator<Skill> i = keys.iterator(); i.hasNext();) {
+                    Skill key = i.next();
+                    SkillEntry skill = getSkills().get(key);
+                    if (skill.expiration != -1 && skill.expiration < currenttime) {
+                        changeSkillLevel(key, (byte) -1, 0, -1);
                     }
+                }
 
-                    List<Item> toberemove = new ArrayList<>();
-                    for (MapleInventory inv : inventory) {
-                        for (Item item : inv.list()) {
-                            expiration = item.getExpiration();
-                            if (expiration != -1 && (expiration < currenttime) && ((item.getFlag() & ItemConstants.LOCK) == ItemConstants.LOCK)) {
-                                byte aids = item.getFlag();
-                                aids &= ~(ItemConstants.LOCK);
-                                item.setFlag(aids); //Probably need a check, else people can make expiring items into permanent items...
-                                item.setExpiration(-1);
-                                forceUpdateItem(item);   //TEST :3
-                            } else if (expiration != -1 && expiration < currenttime) {
-                                client.announce(MaplePacketCreator.itemExpired(item.getItemId()));
-                                toberemove.add(item);
-                            }
+                List<Item> toberemove = new ArrayList<>();
+                for (MapleInventory inv : inventory) {
+                    for (Item item : inv.list()) {
+                        expiration = item.getExpiration();
+                        if (expiration != -1 && (expiration < currenttime) && ((item.getFlag() & ItemConstants.LOCK) == ItemConstants.LOCK)) {
+                            byte aids = item.getFlag();
+                            aids &= ~(ItemConstants.LOCK);
+                            item.setFlag(aids); //Probably need a check, else people can make expiring items into permanent items...
+                            item.setExpiration(-1);
+                            forceUpdateItem(item);   //TEST :3
+                        } else if (expiration != -1 && expiration < currenttime) {
+                            client.announce(MaplePacketCreator.itemExpired(item.getItemId()));
+                            toberemove.add(item);
                         }
-                        for (Item item : toberemove) {
-                            MapleInventoryManipulator.removeFromSlot(client, inv.getType(), item.getPosition(), item.getQuantity(), true);
-                        }
-                        toberemove.clear();
                     }
+                    for (Item item : toberemove) {
+                        MapleInventoryManipulator.removeFromSlot(client, inv.getType(), item.getPosition(), item.getQuantity(), true);
+                    }
+                    toberemove.clear();
                 }
             }, 60000);
         }
@@ -1918,7 +1892,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 }
             }
             return id;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return -1;
     }
@@ -1938,7 +1912,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 }
             }
             return name;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return null;
     }
@@ -2462,15 +2436,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         if (energybar >= 10000 && energybar < 11000) {
             energybar = 15000;
             final MapleCharacter chr = this;
-            tMan.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    energybar = 0;
-                    List<Pair<MapleBuffStat, Integer>> stat = Collections.singletonList(new Pair<>(MapleBuffStat.ENERGY_CHARGE, energybar));
-                    setBuffedValue(MapleBuffStat.ENERGY_CHARGE, energybar);
-                    client.announce(MaplePacketCreator.giveBuff(energybar, 0, stat));
-                    getMap().broadcastMessage(chr, MaplePacketCreator.giveForeignBuff(energybar, stat));
-                }
+            tMan.schedule(() -> {
+                energybar = 0;
+                List<Pair<MapleBuffStat, Integer>> stat = Collections.singletonList(new Pair<>(MapleBuffStat.ENERGY_CHARGE, energybar));
+                setBuffedValue(MapleBuffStat.ENERGY_CHARGE, energybar);
+                client.announce(MaplePacketCreator.giveBuff(energybar, 0, stat));
+                getMap().broadcastMessage(chr, MaplePacketCreator.giveForeignBuff(energybar, stat));
             }, ceffect.getDuration());
         }
     }
@@ -2511,7 +2482,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.setInt(2, to.getId());
                 ps.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 
@@ -2548,10 +2519,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     public boolean isBuffFrom(MapleBuffStat stat, Skill skill) {
         MapleBuffStatValueHolder mbsvh = effects.get(stat);
-        if (mbsvh == null) {
-            return false;
-        }
-        return mbsvh.effect.isSkill() && mbsvh.effect.getSourceId() == skill.getId();
+        return mbsvh != null && mbsvh.effect.isSkill() && mbsvh.effect.getSourceId() == skill.getId();
     }
 
     public boolean isCygnus() {
@@ -3342,14 +3310,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         if (dragonBloodSchedule != null) {
             dragonBloodSchedule.cancel(false);
         }
-        dragonBloodSchedule = TimerManager.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                addHP(-bloodEffect.getX());
-                client.announce(MaplePacketCreator.showOwnBuffEffect(bloodEffect.getSourceId(), 5));
-                getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBuffeffect(getId(), bloodEffect.getSourceId(), 5), false);
-                checkBerserk();
-            }
+        dragonBloodSchedule = TimerManager.getInstance().register(() -> {
+            addHP(-bloodEffect.getX());
+            client.announce(MaplePacketCreator.showOwnBuffEffect(bloodEffect.getSourceId(), 5));
+            getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBuffeffect(getId(), bloodEffect.getSourceId(), 5), false);
+            checkBerserk();
         }, 4000, 4000);
     }
 
@@ -3509,39 +3474,30 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             if (bHealingLvl > 0) {
                 final MapleStatEffect healEffect = bHealing.getEffect(bHealingLvl);
                 int healInterval = healEffect.getX() * 1000;
-                beholderHealingSchedule = TimerManager.getInstance().register(new Runnable() {
-                    @Override
-                    public void run() {
-                        addHP(healEffect.getHp());
-                        client.announce(MaplePacketCreator.showOwnBuffEffect(beholder, 2));
-                        getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.summonSkill(getId(), beholder, 5), true);
-                        getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showOwnBuffEffect(beholder, 2), false);
-                    }
+                beholderHealingSchedule = TimerManager.getInstance().register(() -> {
+                    addHP(healEffect.getHp());
+                    client.announce(MaplePacketCreator.showOwnBuffEffect(beholder, 2));
+                    getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.summonSkill(getId(), beholder, 5), true);
+                    getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showOwnBuffEffect(beholder, 2), false);
                 }, healInterval, healInterval);
             }
             Skill bBuff = SkillFactory.getSkill(DarkKnight.HEX_OF_BEHOLDER);
             if (getSkillLevel(bBuff) > 0) {
                 final MapleStatEffect buffEffect = bBuff.getEffect(getSkillLevel(bBuff));
                 int buffInterval = buffEffect.getX() * 1000;
-                beholderBuffSchedule = TimerManager.getInstance().register(new Runnable() {
-                    @Override
-                    public void run() {
-                        buffEffect.applyTo(MapleCharacter.this);
-                        client.announce(MaplePacketCreator.showOwnBuffEffect(beholder, 2));
-                        getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.summonSkill(getId(), beholder, (int) (Math.random() * 3) + 6), true);
-                        getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBuffeffect(getId(), beholder, 2), false);
-                    }
+                beholderBuffSchedule = TimerManager.getInstance().register(() -> {
+                    buffEffect.applyTo(MapleCharacter.this);
+                    client.announce(MaplePacketCreator.showOwnBuffEffect(beholder, 2));
+                    getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.summonSkill(getId(), beholder, (int) (Math.random() * 3) + 6), true);
+                    getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showBuffeffect(getId(), beholder, 2), false);
                 }, buffInterval, buffInterval);
             }
         } else if (effect.isRecovery()) {
             final byte heal = (byte) effect.getX();
-            recoveryTask = TimerManager.getInstance().register(new Runnable() {
-                @Override
-                public void run() {
-                    addHP(heal);
-                    client.announce(MaplePacketCreator.showOwnRecovery(heal));
-                    getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showRecovery(id, heal), false);
-                }
+            recoveryTask = TimerManager.getInstance().register(() -> {
+                addHP(heal);
+                client.announce(MaplePacketCreator.showOwnRecovery(heal));
+                getMap().broadcastMessage(MapleCharacter.this, MaplePacketCreator.showRecovery(id, heal), false);
             }, 5000, 5000);
         }
         for (Pair<MapleBuffStat, Integer> statup : effect.getStatups()) {
@@ -3692,7 +3648,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                     }
                     ps.executeBatch();
                 }
-            } catch (SQLException se) {
+            } catch (SQLException ignored) {
             }
         }
     }
@@ -3706,7 +3662,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.setInt(4, id);
                 ps.execute();
             }
-        } catch (SQLException se) {
+        } catch (SQLException ignored) {
         }
     }
 
@@ -3794,7 +3750,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 }
                 con.setAutoCommit(true);
                 con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
-            } catch (SQLException e) {
+            } catch (SQLException ignored) {
             }
         }
     }
@@ -4068,7 +4024,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             try {
                 con.setAutoCommit(true);
                 con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
     }
@@ -4076,12 +4032,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
     public void sendPolice(int greason, String reason, int duration) {
         announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for %s.#k", "Solaxia", reason)));
         this.isbanned = true;
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                client.disconnect(false, false);
-            }
-        }, duration);
+        TimerManager.getInstance().schedule(() -> client.disconnect(false, false), duration);
     }
 
     public void sendPolice(String text) {
@@ -4618,12 +4569,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
             rightmap = false;
         }
         final boolean rightMap = rightmap; // lol
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                if (rightMap) {
-                    client.getPlayer().changeMap(client.getChannelServer().getMapFactory().getMap(925020000));
-                }
+        TimerManager.getInstance().schedule(() -> {
+            if (rightMap) {
+                client.getPlayer().changeMap(client.getChannelServer().getMapFactory().getMap(925020000));
             }
         }, time * 1000 + 3000); // let the TIMES UP display for 3 seconds, then warp
     }
@@ -4639,7 +4587,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                     client.announce(MaplePacketCreator.showNotes(rs, count));
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 
@@ -4684,23 +4632,20 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     public void startFullnessSchedule(final int decrease, final MaplePet pet, int petSlot) {
         ScheduledFuture<?> schedule;
-        schedule = TimerManager.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                int newFullness = pet.getFullness() - decrease;
-                if (newFullness <= 5) {
-                    pet.setFullness(15);
-                    pet.saveToDb();
-                    unequipPet(pet, true);
-                } else {
-                    pet.setFullness(newFullness);
-                    pet.saveToDb();
-                    Item petz = getInventory(MapleInventoryType.CASH).getItem(pet.getPosition());
-                    if (petz != null) {
-						forceUpdateItem(petz);
-                }
+        schedule = TimerManager.getInstance().register(() -> {
+            int newFullness = pet.getFullness() - decrease;
+            if (newFullness <= 5) {
+                pet.setFullness(15);
+                pet.saveToDb();
+                unequipPet(pet, true);
+            } else {
+                pet.setFullness(newFullness);
+                pet.saveToDb();
+                Item petz = getInventory(MapleInventoryType.CASH).getItem(pet.getPosition());
+                if (petz != null) {
+                    forceUpdateItem(petz);
             }
-            }
+        }
         }, 180000, 18000);
         fullnessSchedule[petSlot] = schedule;
 
@@ -4713,12 +4658,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
     public void startMapEffect(String msg, int itemId, int duration) {
         final MapleMapEffect mapEffect = new MapleMapEffect(msg, itemId);
         getClient().announce(mapEffect.makeStartData());
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                getClient().announce(mapEffect.makeDestroyData());
-            }
-        }, duration);
+        TimerManager.getInstance().schedule(() -> getClient().announce(mapEffect.makeDestroyData()), duration);
     }
 
     public void stopControllingMonster(MapleMonster monster) {
@@ -4805,14 +4745,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
     }
 
     public void questTimeLimit(final MapleQuest quest, int time) {
-        ScheduledFuture<?> sf = TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                announce(MaplePacketCreator.questExpire(quest.getId()));
-                MapleQuestStatus newStatus = new MapleQuestStatus(quest, MapleQuestStatus.Status.NOT_STARTED);
-                newStatus.setForfeited(getQuest(quest).getForfeited() + 1);
-                updateQuest(newStatus);
-            }
+        ScheduledFuture<?> sf = TimerManager.getInstance().schedule(() -> {
+            announce(MaplePacketCreator.questExpire(quest.getId()));
+            MapleQuestStatus newStatus = new MapleQuestStatus(quest, MapleQuestStatus.Status.NOT_STARTED);
+            newStatus.setForfeited(getQuest(quest).getForfeited() + 1);
+            updateQuest(newStatus);
         }, time * 60 * 1000);
         announce(MaplePacketCreator.addQuestTimeLimit(quest.getId(), time * 60 * 1000));
         timers.add(sf);
@@ -4905,10 +4842,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     public boolean containsAreaInfo(int area, String info) {
         Short area_ = Short.valueOf((short) area);
-        if (area_info.containsKey(area_)) {
-            return area_info.get(area_).contains(info);
-        }
-        return false;
+        return area_info.containsKey(area_) && area_info.get(area_).contains(info);
     }
 
     public void updateAreaInfo(int area, String info) {
@@ -4927,12 +4861,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
     public void autoban(String reason) {
         this.ban(reason);
         announce(MaplePacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "Solaxia")));
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                client.disconnect(false, false);
-            }
-        }, 5000);
+        TimerManager.getInstance().schedule(() -> client.disconnect(false, false), 5000);
         Server.getInstance().broadcastGMMessage(MaplePacketCreator.serverNotice(6, MapleCharacter.makeMapleReadable(this.name) + " was autobanned for " + reason));
     }
 
@@ -4949,7 +4878,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
                 ps.setInt(4, accountid);
                 ps.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 
@@ -5127,15 +5056,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
 
     public void equipPendantOfSpirit() {
         if (pendantOfSpirit == null) {
-            pendantOfSpirit = TimerManager.getInstance().register(new Runnable() {
-                @Override
-                public void run() {
-                    if (pendantExp < 3) {
-                        pendantExp++;
-                        message("Pendant of the Spirit has been equipped for " + pendantExp + " hour(s), you will now receive " + pendantExp + "0% bonus exp.");
-                    } else {
-                        pendantOfSpirit.cancel(false);
-                    }
+            pendantOfSpirit = TimerManager.getInstance().register(() -> {
+                if (pendantExp < 3) {
+                    pendantExp++;
+                    message("Pendant of the Spirit has been equipped for " + pendantExp + " hour(s), you will now receive " + pendantExp + "0% bonus exp.");
+                } else {
+                    pendantOfSpirit.cancel(false);
                 }
             }, 3600000); //1 hour
         }

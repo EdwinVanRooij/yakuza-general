@@ -230,16 +230,13 @@ public class EventInstanceManager {
 	}
 
 	public void schedule(final String methodName, long delay) {
-		TimerManager.getInstance().schedule(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					em.getIv().invokeFunction(methodName, EventInstanceManager.this);
-				} catch (ScriptException | NoSuchMethodException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}, delay);
+		TimerManager.getInstance().schedule(() -> {
+            try {
+                em.getIv().invokeFunction(methodName, EventInstanceManager.this);
+            } catch (ScriptException | NoSuchMethodException ex) {
+                ex.printStackTrace();
+            }
+        }, delay);
 	}
 
 	public String getName() {

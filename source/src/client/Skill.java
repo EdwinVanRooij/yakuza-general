@@ -53,12 +53,9 @@ public class Skill {
 
     public boolean isFourthJob() {
         if (job == 2212) {
-        	return false;
+            return false;
         }
-        if (id == 22170001 || id == 22171003 || id == 22171004 || id == 22181002 || id == 22181003) {
-        	return true;
-        }
-    	return job % 10 == 2;
+        return id == 22170001 || id == 22171003 || id == 22171004 || id == 22181002 || id == 22181003 || job % 10 == 2;
     }
 
     public Element getElement() {

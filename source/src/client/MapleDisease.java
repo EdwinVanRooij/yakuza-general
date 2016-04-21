@@ -37,12 +37,12 @@ public enum MapleDisease {
     private long i;
     private boolean first;
     
-    private MapleDisease(long i) {
+    MapleDisease(long i) {
         this.i = i;
         this.first = false;
     }
 
-    private MapleDisease(long i, boolean first) {
+    MapleDisease(long i, boolean first) {
         this.i = i;
         this.first = first;
     }

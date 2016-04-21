@@ -79,10 +79,8 @@ public class Main {
             }
         } catch (MalformedURLException mue) {
             System.out.println("Error parsing URL: " + url);
-            return;
         } catch (IOException ioe) {
             System.out.println("Error reading from URL: " + ioe.getLocalizedMessage());
-            return;
         }
     }
 
@@ -127,10 +125,10 @@ public class Main {
             item_name = item_name.replaceAll("for Magic Attack", "for Magic Att.").trim();
             item_name = item_name.replaceAll("\\(50%\\)", "").trim();
             item_name = item_name.replaceAll("\\(70%\\)", "").trim();
-            item_name = item_name.replaceAll("\\'s", "").trim();
+            item_name = item_name.replaceAll("'s", "").trim();
             
             
-            monster_name = monster_name.replaceAll("Horntail\\'s Head B", "Horntail");
+            monster_name = monster_name.replaceAll("Horntail's Head B", "Horntail");
             // Process scrolls, neoxon doesn't have the % on most of the scrolls. So we need to remove it
             // Unfortunately they do for some, so we have to handle that too.
             boolean scroll = false;

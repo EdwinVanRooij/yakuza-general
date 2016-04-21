@@ -54,10 +54,7 @@ public class BuddyList {
 
     public boolean containsVisible(int characterId) {
         BuddylistEntry ble = buddies.get(characterId);
-        if (ble == null) {
-            return false;
-        }
-        return ble.isVisible();
+        return ble != null && ble.isVisible();
     }
 
     public int getCapacity() {

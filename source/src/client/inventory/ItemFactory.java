@@ -47,7 +47,7 @@ public enum ItemFactory {
     private boolean account;
 	private static ReentrantLock lock = new ReentrantLock(true);
 
-    private ItemFactory(int value, boolean account) {
+    ItemFactory(int value, boolean account) {
         this.value = value;
         this.account = account;
     }

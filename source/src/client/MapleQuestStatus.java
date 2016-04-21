@@ -41,7 +41,7 @@ public class MapleQuestStatus {
         COMPLETED(2);
         final int status;
 
-        private Status(int id) {
+        Status(int id) {
             status = id;
         }
 

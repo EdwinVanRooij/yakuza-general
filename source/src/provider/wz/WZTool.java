@@ -55,12 +55,12 @@ public class WZTool {
         SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
         try {
             cipher = Cipher.getInstance("AES");
-        } catch (NoSuchAlgorithmException e) {
-        } catch (NoSuchPaddingException e) {
+        } catch (NoSuchAlgorithmException ignored) {
+        } catch (NoSuchPaddingException ignored) {
         }
         try {
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        } catch (InvalidKeyException e) {
+        } catch (InvalidKeyException ignored) {
         }
         encKey = new byte[0xFFFF];
         for (int i = 0; i < (0xFFFF / 16); i++) {

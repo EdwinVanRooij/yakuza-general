@@ -132,7 +132,7 @@ public final class MonsterBook {
             ps = con.prepareStatement(query.toString());
             ps.execute();
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 }

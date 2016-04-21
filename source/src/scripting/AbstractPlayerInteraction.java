@@ -327,7 +327,7 @@ public class AbstractPlayerInteraction {
 	public MapleGuild getGuild() {
 		try {
 			return Server.getInstance().getGuild(getPlayer().getGuildId(), getPlayer().getWorld(), null);
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 		return null;
 	}
@@ -337,10 +337,7 @@ public class AbstractPlayerInteraction {
 	}
 
 	public boolean isLeader() {
-		if(getParty() == null)
-			return false;
-		
-		return getParty().getLeader().equals(getPlayer().getMPC());
+		return getParty() != null && getParty().getLeader().equals(getPlayer().getMPC());
 	}
 
 	public void givePartyItems(int id, short quantity, List<MapleCharacter> party) {

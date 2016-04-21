@@ -59,7 +59,7 @@ public class FilePrinter {
             out = new FileOutputStream(file, true);
             out.write(getString(t).getBytes());
             out.write("\n---------------------------------\r\n".getBytes());
-        } catch (IOException ess) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 if (out != null) {
@@ -84,7 +84,7 @@ public class FilePrinter {
             out.write((info + "\r\n").getBytes());
             out.write(getString(t).getBytes());
             out.write("\n---------------------------------\r\n".getBytes());
-        } catch (IOException ess) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 if (out != null) {
@@ -108,7 +108,7 @@ public class FilePrinter {
             out = new FileOutputStream(file, true);
             out.write(s.getBytes());
             //out.write("\n---------------------------------\n".getBytes());
-        } catch (IOException ess) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 if (out != null) {
@@ -139,7 +139,7 @@ public class FilePrinter {
             if (line) {
                 out.write("---------------------------------\r\n".getBytes());
             }
-        } catch (IOException ess) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 if (out != null) {

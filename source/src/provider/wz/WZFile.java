@@ -141,7 +141,7 @@ public class WZFile implements MapleDataProvider {
             }
             MapleData ret = imgFile.getRoot();
             return ret;
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
         return null;
     }

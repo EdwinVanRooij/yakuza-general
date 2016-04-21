@@ -74,13 +74,13 @@ public class DataTool {
 
         ArrayList<Integer> ret = new ArrayList<>();
         for (Pair<Integer, String> itemPair : MapleItemInformationProvider.getInstance().getAllItems()) {
-            String item_name = itemPair.getRight().toLowerCase().replaceAll("\\&quot;", "");
+            String item_name = itemPair.getRight().toLowerCase().replaceAll("&quot;", "");
             item_name = item_name.replaceAll("'", "");
-            item_name = item_name.replaceAll("\\'", "");
+            item_name = item_name.replaceAll("'", "");
 
-            name = name.toLowerCase().replaceAll("\\&quot;", "");
+            name = name.toLowerCase().replaceAll("&quot;", "");
             name = name.replaceAll("'", "");
-            name = name.replaceAll("\\'", "");
+            name = name.replaceAll("'", "");
 
             if (item_name.equals(name)) {
                 ret.add(itemPair.getLeft());

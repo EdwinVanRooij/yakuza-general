@@ -4,9 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.server.Server;
-import net.server.channel.Channel;
-import net.server.world.MapleParty;
-import net.server.world.MaplePartyCharacter;
 import server.MapleItemInformationProvider;
 import server.MapleTrade;
 import server.expeditions.MapleExpedition;
@@ -23,13 +20,13 @@ public class LogHelper {
 		log += trade1.getExchangeMesos() + " mesos from " + name1 + " to " + name2 + " \r\n";
 		for (Item item : trade1.getItems()){
 			String itemName = MapleItemInformationProvider.getInstance().getName(item.getItemId()) + "(" + item.getItemId() + ")";
-			log += item.getQuantity() + " " + itemName + " from "  + name1 + " to " + name2 + " \r\n";;
+			log += item.getQuantity() + " " + itemName + " from "  + name1 + " to " + name2 + " \r\n";
 		}
 		//Trade 2 to trade 1
 		log += trade2.getExchangeMesos() + " mesos from " + name2 + " to " + name1 + " \r\n";
 		for (Item item : trade2.getItems()){
 			String itemName = MapleItemInformationProvider.getInstance().getName(item.getItemId()) + "(" + item.getItemId() + ")";
-			log += item.getQuantity() + " " + itemName + " from " + name2 + " to " + name1 + " \r\n";;
+			log += item.getQuantity() + " " + itemName + " from " + name2 + " to " + name1 + " \r\n";
 		}
 		log += "\r\n\r\n";
 		FilePrinter.printError("trades.txt", log);

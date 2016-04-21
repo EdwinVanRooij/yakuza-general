@@ -67,7 +67,7 @@ public class PortalPlayerInteraction extends AbstractPlayerInteraction {
                 if (rs != null && !rs.isClosed()) {
                     rs.close();
                 }
-            } catch (SQLException ex) {
+            } catch (SQLException ignored) {
             }
         }
         return false;

@@ -337,7 +337,7 @@ public enum SendOpcode {
     VICIOUS_HAMMER(0x162);
     private int code = -2;
 
-    private SendOpcode(int code) {
+    SendOpcode(int code) {
         this.code = code;
     }
 

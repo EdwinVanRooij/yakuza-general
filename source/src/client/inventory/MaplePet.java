@@ -85,7 +85,7 @@ public class MaplePet extends Item {
             ps.setInt(6, getUniqueId());
             ps.executeUpdate();
             ps.close();
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 

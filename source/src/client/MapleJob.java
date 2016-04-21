@@ -64,7 +64,7 @@ public enum MapleJob {
 
     final int jobid;
 
-    private MapleJob(int id) {
+    MapleJob(int id) {
         jobid = id;
     }
 

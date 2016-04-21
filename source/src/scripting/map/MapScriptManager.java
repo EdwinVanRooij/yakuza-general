@@ -65,7 +65,7 @@ public class MapScriptManager {
         if (scripts.containsKey(scriptName)) {
             try {
                 scripts.get(scriptName).invokeFunction("start", new MapScriptMethods(c));
-            } catch (final ScriptException | NoSuchMethodException e) {
+            } catch (final ScriptException | NoSuchMethodException ignored) {
             }
             return;
         }
@@ -92,7 +92,7 @@ public class MapScriptManager {
             if (fr != null) {
                 try {
                     fr.close();
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                 }
             }
         }

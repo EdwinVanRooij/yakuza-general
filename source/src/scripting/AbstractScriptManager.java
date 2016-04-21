@@ -24,7 +24,6 @@ package scripting;
 import client.MapleClient;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
@@ -35,7 +34,6 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import constants.ServerConstants;
 import tools.FilePrinter;
 
 /**

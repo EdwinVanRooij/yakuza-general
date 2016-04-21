@@ -189,28 +189,28 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 	public void startQuest(short id) {
 		try {
 			MapleQuest.getInstance(id).forceStart(getPlayer(), npc);
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException ignored) {
 		}
 	}
 
 	public void completeQuest(short id) {
 		try {
 			MapleQuest.getInstance(id).forceComplete(getPlayer(), npc);
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException ignored) {
 		}
 	}
 
 	public void startQuest(int id) {
 		try {
 			MapleQuest.getInstance(id).forceStart(getPlayer(), npc);
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException ignored) {
 		}
 	}
 
 	public void completeQuest(int id) {
 		try {
 			MapleQuest.getInstance(id).forceComplete(getPlayer(), npc);
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException ignored) {
 		}
 	}
 
@@ -327,7 +327,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 			} catch (NumberFormatException nfe) {
 				break;
 			} catch (NullPointerException npe) {
-				continue;
 			}
 		}
 	}
@@ -366,7 +365,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 				if (ps != null && !ps.isClosed()) {
 					ps.close();
 				}
-			} catch (SQLException ex) {
+			} catch (SQLException ignored) {
 			}
 		}
 	}
@@ -497,7 +496,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 		for (byte b = 0; b < 5; b++) {//They cannot warp to the next map before the timer ends (:
 			map = mf.getMap(mapid + b);
 			if (map.getCharacters().size() > 0) {
-				continue;
 			} else {
 				break;
 			}

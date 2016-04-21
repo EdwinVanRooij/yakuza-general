@@ -417,7 +417,6 @@ public class Commands {
                                 float chance = 1000000 / drop.chance / player.getDropRate();
                                 output += "- " + name + " (1/" + (int) chance + ")\r\n";
                             } catch (Exception ex) {
-                                continue;
                             }
                         }
                         output += "\r\n";
@@ -623,7 +622,7 @@ public class Commands {
                         if (rs != null && !rs.isClosed()) {
                             rs.close();
                         }
-                    } catch (SQLException e) {
+                    } catch (SQLException ignored) {
                     }
                 }
                 break;
@@ -853,7 +852,7 @@ public class Commands {
                         try {//sometimes bugged because the map = null
                             victim.getClient().disconnect(true, false);
                             player.getMap().removePlayer(victim);
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
                         }
                     } else {
                         return true;
@@ -955,14 +954,14 @@ public class Commands {
                         player.dropMessage(s);
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         } else if (sub[0].equals("item") || sub[0].equals("drop")) {
             int itemId = Integer.parseInt(sub[1]);
             short quantity = 1;
             try {
                 quantity = Short.parseShort(sub[2]);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             if (sub[0].equals("item")) {
                 int petid = -1;
@@ -1074,7 +1073,6 @@ public class Commands {
                 } catch (NumberFormatException nfe) {
                     break;
                 } catch (NullPointerException npe) {
-                    continue;
                 }
             }
         } else if (sub[0].equals("mesos")) {
@@ -1254,12 +1252,7 @@ public class Commands {
                 target.yellowMessage("Reason: " + reason);
                 c.announce(MaplePacketCreator.getGMEffect(4, (byte) 0));
                 final MapleCharacter rip = target;
-                TimerManager.getInstance().schedule(new Runnable() {
-                    @Override
-                    public void run() {
-                        rip.getClient().disconnect(false, false);
-                    }
-                }, 5000); //5 Seconds
+                TimerManager.getInstance().schedule(() -> rip.getClient().disconnect(false, false), 5000); //5 Seconds
                 Server.getInstance().broadcastMessage(MaplePacketCreator.serverNotice(6, "[RIP]: " + ign + " has been banned."));
             } else if (MapleCharacter.ban(ign, reason, false)) {
                 c.announce(MaplePacketCreator.getGMEffect(4, (byte) 0));

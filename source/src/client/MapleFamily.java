@@ -47,7 +47,7 @@ public class MapleFamily {
 			ps.close();
 			rs.close();
 			getMapleFamily();
-		} catch (SQLException ex) {
+		} catch (SQLException ignored) {
 		}
 	}
 
@@ -71,7 +71,7 @@ public class MapleFamily {
 			}
 			rs.close();
 			ps.close();
-		} catch (SQLException sqle) {
+		} catch (SQLException ignored) {
 		}
 	}
 

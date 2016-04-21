@@ -124,12 +124,7 @@ public class MapleMount {
     }
 
     public void startSchedule() {
-        this.tirednessSchedule = TimerManager.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                increaseTiredness();
-            }
-        }, 60000, 60000);
+        this.tirednessSchedule = TimerManager.getInstance().register(() -> increaseTiredness(), 60000, 60000);
     }
 
     public void cancelSchedule() {

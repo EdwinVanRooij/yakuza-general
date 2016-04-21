@@ -90,7 +90,7 @@ public class ItemScriptManager {
             if (fr != null) {
                 try {
                     fr.close();
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                 }
             }
         }

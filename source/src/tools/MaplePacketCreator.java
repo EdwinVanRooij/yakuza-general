@@ -970,14 +970,11 @@ public class MaplePacketCreator {
 		}
 		List<Pair<MapleStat, Integer>> mystats = stats;
 		if (mystats.size() > 1) {
-			Collections.sort(mystats, new Comparator<Pair<MapleStat, Integer>>() {
-				@Override
-				public int compare(Pair<MapleStat, Integer> o1, Pair<MapleStat, Integer> o2) {
-					int val1 = o1.getLeft().getValue();
-					int val2 = o2.getLeft().getValue();
-					return (val1 < val2 ? -1 : (val1 == val2 ? 0 : 1));
-				}
-			});
+			Collections.sort(mystats, (o1, o2) -> {
+                int val1 = o1.getLeft().getValue();
+                int val2 = o2.getLeft().getValue();
+                return (val1 < val2 ? -1 : (val1 == val2 ? 0 : 1));
+            });
 		}
 		mplew.writeInt(updateMask);
 		for (Pair<MapleStat, Integer> statupdate : mystats) {
@@ -1878,7 +1875,7 @@ public class MaplePacketCreator {
 		boolean yes = false;
 		for (MapleRing ring : rings) {
 			if (ring.equipped()) {
-				if (yes == false) {
+				if (!yes) {
 					yes = true;
 					mplew.write(1);
 				}
@@ -1889,7 +1886,7 @@ public class MaplePacketCreator {
 				mplew.writeInt(ring.getItemId());
 			}
 		}
-		if (yes == false) {
+		if (!yes) {
 			mplew.write(0);
 		}
 	}
@@ -4765,7 +4762,7 @@ public class MaplePacketCreator {
 					   for (int i = 0; i < items.size(); i++) {
 						   addItemInfo(mplew, items.get(i).getLeft(), true);
 					   }
-				   } catch (SQLException e) {
+				   } catch (SQLException ignored) {
 				   }
 				   mplew.skip(3);
 				   return mplew.getPacket();

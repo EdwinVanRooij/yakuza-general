@@ -30,12 +30,12 @@ import tools.Pair;
 
 public class Equip extends Item {
 
-    public static enum ScrollResult {
+    public enum ScrollResult {
 
         FAIL(0), SUCCESS(1), CURSE(2);
         private int value = -1;
 
-        private ScrollResult(int value) {
+        ScrollResult(int value) {
             this.value = value;
         }
 
