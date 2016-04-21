@@ -312,6 +312,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject {
         return ret;
     }
 
+    public int gmLevel() {
+        return gmLevel;
+    }
+
     public void addCooldown(int skillId, long startTime, long length, ScheduledFuture<?> timer) {
         if (this.coolDowns.containsKey(skillId)) {
             this.coolDowns.remove(skillId);
