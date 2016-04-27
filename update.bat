@@ -22,5 +22,3 @@ git commit -m "Added all changes at %year%-%month%-%day%_%hour%.%min% - (automat
 rem Push to remote git repo
 echo "Pushing changes..."
 git push
-
-pause
