@@ -9,7 +9,7 @@ set hour=%hour: =0%
 set min=%time:~-8,2%
 
 rem Show some meta info
-echo "Currently at %cd%"
+echo "\r\nCurrently at %cd%\r\n"
 
 rem Add all files to the git head
 echo "Adding all files to git head..."
