@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--test-->
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="785.0" styleClass="body" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.MainController">
+    <children>
+        <HBox alignment="CENTER" prefHeight="240.0" prefWidth="785.0" styleClass="logo">
+            <children>
+                <Label text="YakuzaMS" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="524.0" prefWidth="785.0" styleClass="inner-container">
+            <children>
+            <VBox prefHeight="482.0" prefWidth="231.0" styleClass="config">
+               <children>
+                  <AnchorPane prefHeight="107.0" prefWidth="128.0" styleClass="config_title">
+                     <children>
+                        <Label layoutX="41.0" layoutY="39.0" text="Configuration" />
+                     </children>
+                  </AnchorPane>
+                  <VBox styleClass="rate">
+                     <children>
+                        <HBox prefHeight="78.0" prefWidth="260.0" styleClass="rate_container">
+                           <children>
+                              <VBox prefHeight="152.0" prefWidth="152.0" styleClass="rate_desc">
+                                 <children>
+                                    <Label text="Exp:" />
+                                    <Label text="Mesos:" />
+                                    <Label text="Drop:" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="376.0" prefWidth="110.0" styleClass="rate_concrete">
+                                 <children>
+                                    <Label text="5x" />
+                                    <Label text="10x" />
+                                    <Label text="3x" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="67.0" prefWidth="260.0" styleClass="links">
+                     <children>
+                        <Label text="Website" />
+                        <Label text="Forum" />
+                        <Label text="Vote" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="155.0" prefWidth="260.0" styleClass="settings">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onSettingsClicked" prefHeight="66.0" prefWidth="174.0" text="Settings">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="482.0" prefWidth="587.0" styleClass="play_news-container">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="276.0" prefWidth="539.0" styleClass="news">
+                     <children>
+                        <Label styleClass="news_label" text="News" />
+                        <ListView fx:id="listview" opacity="0.86" prefHeight="230.0" prefWidth="525.0" styleClass="listview">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </ListView>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="218.0" prefWidth="560.0" styleClass="launch">
+                     <children>
+                        <Button defaultButton="true" mnemonicParsing="false" prefHeight="233.0" prefWidth="758.0" styleClass="btn-play" text="PLAY">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </HBox>
+               </children></VBox>
+            </children>
+        </HBox>
+    </children>
+</VBox>

@@ -25,6 +25,8 @@ public class Main extends Application {
 
             primaryStage.setResizable(false);
 
+            System.out.println(getClass().getResource("sample.fxml"));
+
             Parent root = FXMLLoader.load(getClass().getResource(FileConstants.FXML_FILE_PATH));
 
             primaryStage.setTitle(ApplicationConstants.TITLE);

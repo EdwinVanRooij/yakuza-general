@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../css/settings.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.SettingsController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="95.0" prefWidth="600.0" styleClass="title">
+         <children>
+            <Label text="Settings" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="273.0" prefWidth="600.0">
+         <children>
+            <Label styleClass="infolabel" text="THe folder where your maplestory v83 setup was installed" />
+            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="600.0" styleClass="filepatharea">
+               <children>
+                  <TextField prefHeight="28.0" prefWidth="412.0" />
+                  <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="156.0" styleClass="filepathcontrols" text="Choose folder...">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <Label styleClass="infolabel" text="The client is what the game is launched with (maplestory icon)" />
+            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="600.0" styleClass="filepatharea">
+               <children>
+                  <TextField prefHeight="28.0" prefWidth="412.0" />
+                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="156.0" styleClass="filepathcontrols" text="Choose client...">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+         </children></VBox>
+      <HBox prefHeight="112.0" prefWidth="600.0" styleClass="cc-area">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="83.0" prefWidth="224.0" styleClass="btnCancelOrConfirm" text="Cancel">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onConfirmClicked" prefHeight="83.0" prefWidth="458.0" styleClass="btnCancelOrConfirm" text="Confirm">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
